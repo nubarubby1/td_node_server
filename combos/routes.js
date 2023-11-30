@@ -15,9 +15,9 @@ function ComboRoutes(app) {
   };
 
   const updateCombo = async (req, res) => {
-    const { name } = req.params;
-    const status = await dao.updateCombo(name, req.body);
-    currentCombo = await dao.findByName(name);
+    const { id } = req.params;
+    const status = await dao.updateCombo(id, req.body);
+    currentCombo = await dao.findById(id);
     res.json(status);
   };
 
@@ -27,15 +27,15 @@ function ComboRoutes(app) {
   };
 
   const deleteCombo = async (req, res) => {
-    const { name } = req.params;
-    const status = await dao.deleteCombo(name);
+    const { id } = req.params;
+    const status = await dao.deleteCombo(id);
     res.json(status);
   };
 
   const findOneCombo = async (req, res) => {
-    const { name } = req.params;
+    const { id } = req.params;
 
-    const status = await dao.findByName(name);
+    const status = await dao.findById(id);
     res.json(status);
   };
 
@@ -53,10 +53,10 @@ function ComboRoutes(app) {
   app.post('/api/createCombo', createCombo);
   app.get('/api/combos', findAllCombos);
   app.get('/api/combosHard', findHardCombos);
-  app.get('/api/combos/:name', findOneCombo);
+  app.get('/api/combos/:id', findOneCombo);
 
-  app.put('/api/combos/:name', updateCombo);
-  app.delete('/api/delete/:name', deleteCombo);
+  app.put('/api/combos/:id', updateCombo);
+  app.delete('/api/delete/:id', deleteCombo);
 }
 
 export default ComboRoutes;
